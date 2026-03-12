@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "FlexLazyRow"
 include(":app")
- 
+include(":flexlazyrow")
