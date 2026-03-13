@@ -1,11 +1,10 @@
-import org.gradle.api.publish.maven.MavenPublication
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id ("maven-publish")
-    id ("signing")
+    id("maven-publish")
+    id("signing")
+    id("com.vanniktech.maven.publish") version "0.36.0"
 }
 
 android {
@@ -27,8 +26,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -58,44 +56,32 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.6.0")
 }
 
-signing {
-    sign(publishing.publications)
-}
+mavenPublishing {
+    coordinates("io.github.karthikeyan8296", "flexlazyrow", "1.0.0")
 
-publishing {
-    publications {
-        create<MavenPublication>("release") {
-            groupId = "io.github.karthikeyan8296"
-            artifactId = "flexlazyrow"
-            version = "1.0.0"
-
-            afterEvaluate {
-                from(components["release"])
+    pom {
+        name.set("FlexLazyRow")
+        description.set("A Swiggy-style parallax LazyRow for Jetpack Compose")
+        inceptionYear.set("2026")
+        url.set("https://github.com/karthikeyan8296/flexlazyrow")
+        licenses {
+            license {
+                name.set("The Apache License, Version 2.0")
+                url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                distribution.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
             }
-
-            pom {
-                name.set("FlexLazyRow")
-                description.set("A Swiggy-style parallax LazyRow for Jetpack Compose")
-                url.set("https://github.com/karthikeyan8296/flexlazyrow")
-
-                licenses {
-                    license {
-                        name = "MIT License"
-                        url = "https://opensource.org/licenses/MIT"
-                    }
-                }
-
-                developers {
-                    developer {
-                        id = "karthikeyan8296"
-                        name = "Karthikeyan"
-                    }
-                }
-
-                scm {
-                    url = "https://github.com/karthikeyan8296/flexlazyrow"
-                }
+        }
+        developers {
+            developer {
+                id.set("karthikeyan8296")
+                name.set("Karthikeyan")
+                url.set("https://github.com/karthikeyan8296")
             }
+        }
+        scm {
+            url.set("https://github.com/karthikeyan8296/flexlazyrow")
+            connection.set("scm:git:git://github.com/karthikeyan8296/flexlazyrow.git")
+            developerConnection.set("scm:git:ssh://git@github.com/karthikeyan8296/flexlazyrow.git")
         }
     }
 }
